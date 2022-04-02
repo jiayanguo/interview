@@ -1,0 +1,14 @@
+-- TAO
+  Expensive read-after-write consistency: Facebook
+uses asynchronous master/slave replication for MySQL,
+which poses a problem for caches in data centers using a
+replica. Writes are forwarded to the master, but some
+time will elapse before they are reflected in the local
+replica. Nishtala et al.’s remote markers [21] track keys
+that are known to be stale, forwarding reads for those
+keys to the master region. By restricting the data model
+to objects and associations we can update the replica’s
+cache at write time, then use graph semantics to interpret
+cache maintenance messages from concurrent updates.
+This provides (in the absence of multiple failures) readafter-write consistency for all clients that share a cache,
+without requiring inter-regional communication.
